@@ -27,10 +27,27 @@ sortsubList :: [[a]] -> [[a]]
 sortsubList xs  = sortBy (\x y -> compare (length x) (length y)) xs
 
 -- Exercise 7 & 8
--- intersperse :: a -> [[a]] -> [a]
--- intersperse x [] = []
--- intersperse x (y:ys) = if null ys
---                        then y
---                        else (y ++ x) ++ (intersperse x ys)
+intersperse :: [a] -> [[a]] -> [a]
+intersperse x [] = []
+intersperse x (y:ys) = if null ys
+                       then y
+                       else (y ++ x) ++ (intersperse x ys)
 
+-- Exercise 9
 
+data Tree a = Node a (Tree a) (Tree a)
+            | Empty
+              deriving (Show)
+
+heightTree :: Tree a -> Int
+heightTree Empty = 0
+heightTree (Node a l r) = 1 + heightTree l + heightTree r
+
+-- Exercise 10
+
+data Direction = Left
+               | Right
+               | Straight_Line
+               deriving (Show)
+
+-- Rest: Will do after Reading Graham Scan Algo.
