@@ -1,4 +1,7 @@
-{-# LANGUAGE FlexibleInstances #-}
+
+{-# LANGUAGE FlexibleInstances, OverlappingInstances #-}
+
+-- This is an example of JSON with overlapping instances
 
 type JSONError = String
 
