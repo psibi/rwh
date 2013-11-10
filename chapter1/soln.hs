@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Chapter 1 Solution
+-- Chapter 1 Solution (Page 16)
 
 -- Exercise 1: Enter them into your ghci
 

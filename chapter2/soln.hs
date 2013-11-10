@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Chapter 2: Types and Functions
+-- Chapter 2: Types and Functions (page 39)
 
 -- Exercise 1: Theorish!
 
