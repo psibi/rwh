@@ -51,3 +51,4 @@ my_takeWhile' p xs = foldr step [] xs
 -- Todo: Exercise 8, 9 & 10
 
 
+
