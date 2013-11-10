@@ -1,11 +1,10 @@
-## Solutions to problems in
-   [Real World Haskell](http://book.realworldhaskell.org/read/) book
+## Solutions to problems in [Real World Haskell](http://book.realworldhaskell.org/read/) book
 
 My attempt to solve the exercises in the book as I read through each
 chapter of the book.
 
 Note: Some exercises may be unsolved as of now because I'm too lazy to
-think but I will definitely return back to them at some point.
+think but I will definitely return back to them at some point!
 
 ### Current Status
 
