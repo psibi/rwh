@@ -15,4 +15,4 @@ think but I will definitely return back to them at some point!
   8, 9, 10)
 * Chapter 5: Argh! All problems remaining.
 * Chapter 6: Complete
-
+* Chapter 7: Yay! No problems given in the book. :-)
