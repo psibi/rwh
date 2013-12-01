@@ -14,3 +14,18 @@ bindAlt :: SimpleState s a -> (a -> SimpleState s b) -> SimpleState s b
 bindAlt step makeStep oldState =
   let (result, newState) = step oldState
   in (makeStep result) newState
+
+getSt :: SimpleState s s
+getSt = \s -> (s, s)
+
+putSt :: s -> SimpleState s ()
+putSt s = \_ -> ((), s)
+
+
+-- Some Examples:
+
+-- ghci > let a = putSt 3 >>= (\i ->  return i)
+-- ghci > a 9
+-- ((),3)
+-- ghci > a undefined
+-- ((),3)
