@@ -33,3 +33,25 @@ runTwoRandoms = do
   let (result, newState) = runState getTwoRandoms oldState
   setStdGen newState
   return result
+
+data CountedRandom = CountedRandom {
+  crGen :: StdGen,
+  crCount :: Int
+  }
+
+type CRState = State CountedRandom
+
+getCountedRandom :: Random a => CRState a
+getCountedRandom = do
+  st <- get
+  let (val, gen') = random (crGen st)
+  put CountedRandom { crGen = gen', crCount = crCount st + 1}
+  return val
+
+getCount :: CRState Int
+getCount = liftM crCount get
+
+putCount :: Int -> CRState ()
+putCount a = do
+  b <- get
+  put b { crCount = a}
