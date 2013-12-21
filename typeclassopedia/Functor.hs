@@ -1,20 +1,20 @@
--- instance Functor [] where
---   fmap f [] = []
---   fmap f (x:xs) = f x : fmap f xs
+instance Functor [] where
+  fmap f [] = []
+  fmap f (x:xs) = f x : fmap f xs
 
--- instance Functor Maybe where
---   fmap f (Just x) = Just (f x)
---   fmap _ Nothing = Nothing
+instance Functor Maybe where
+  fmap f (Just x) = Just (f x)
+  fmap _ Nothing = Nothing
 
--- instance Functor (Either e) where
---   fmap f (Right a) = Right (f a)
---   fmap f (Left x) = Left x
+instance Functor (Either e) where
+  fmap f (Right a) = Right (f a)
+  fmap f (Left x) = Left x
 
--- instance Functor ((->) e) where
---   fmap = (.)
+instance Functor ((->) e) where
+  fmap = (.)
 
--- instance Functor ((,) e) where
---   fmap f (a, b) = (a, f b)
+instance Functor ((,) e) where
+  fmap f (a, b) = (a, f b)
 
 data Pair a = Pair a a
 
