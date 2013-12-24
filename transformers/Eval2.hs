@@ -17,6 +17,7 @@ data Exp = Lit Integer
 
 data Value = IntVal Integer
            | FunVal Env Name Exp
+           deriving (Show)
 
 type Env = Map.Map Name Value
 
@@ -33,3 +34,19 @@ eval2a env (App e1 e2) = do val1 <- eval2a env e1
                               FunVal env' n body ->
                                 eval2a (Map.insert n val2 env) body
                             
+eval2b :: Env -> Exp -> Eval2 Value
+eval2b env (Lit i) = return $ IntVal i
+eval2b env (Var n) = maybe (fail ("undefined variable" ++ n)) return $ Map.lookup n env
+eval2b env (Plus e1 e2) = do e1' <- eval2b env e1
+                             e2' <- eval2b env e2
+                             case (e1', e2') of
+                               (IntVal i1, IntVal i2) ->
+                                 return $ IntVal (i1 + i2)
+                               _ -> throwError "type error"
+eval2b env (Abs n e) = return $ FunVal env n e
+eval2b env (App e1 e2) = do val1 <- eval2b env e1
+                            val2 <- eval2b env e2
+                            case val1 of
+                              FunVal env' n body ->
+                                eval2b (Map.insert n val2 env') body
+                              _ -> throwError "type error"
