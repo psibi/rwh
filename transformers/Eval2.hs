@@ -50,3 +50,14 @@ eval2b env (App e1 e2) = do val1 <- eval2b env e1
                               FunVal env' n body ->
                                 eval2b (Map.insert n val2 env') body
                               _ -> throwError "type error"
+
+eval2c :: Env -> Exp -> Eval2 Value
+eval2c env (Lit i) = return $ IntVal i
+eval2c env (Var n) = maybe (fail ("undefined variable" ++ n)) return $ Map.lookup n env
+eval2c env (Plus e1 e2) = do IntVal i1 <- eval2c env e1
+                             IntVal i2 <- eval2c env e2
+                             return $ IntVal (i1 + i2)
+eval2c env (Abs n e) = return $ FunVal env n e
+eval2c env (App e1 e2) = do FunVal env' n body <- eval2c env e1
+                            val2 <- eval2c env e2
+                            eval2c (Map.insert n val2 env') body
