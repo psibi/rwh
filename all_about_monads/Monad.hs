@@ -24,3 +24,24 @@ mapM f as = sequence $ map f as
 
 mapM_ :: Monad m => (a -> m b) -> [a] -> m ()
 mapM_ f as = sequence_ $ map f as 
+
+--- Reverse binder function
+
+(=<<) :: Monad m => (a -> m b) -> m a -> m b
+f =<< x = x >>= f
+
+--- foldM
+
+foldM :: (Monad m) => (a -> b -> m a) -> a -> [b] -> m a
+foldM f a [] = return a
+foldM f a (x:xs) = f a x >>= \y -> foldM f y xs
+
+-- when and unless function
+
+when :: (Monad m) -> Bool -> m () -> m ()
+when p s = if p then s else return ()
+
+unless :: (Monad m) -> Bool -> m () -> m ()
+unless p s = when (not p) s
+
+
