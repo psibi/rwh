@@ -44,4 +44,6 @@ when p s = if p then s else return ()
 unless :: (Monad m) -> Bool -> m () -> m ()
 unless p s = when (not p) s
 
-
+-- ap and the lifting functions
+liftM :: (Monad m) => (a -> b) -> (m a -> m b)
+liftM f = \a -> do { a' <- a; return (f a')}
