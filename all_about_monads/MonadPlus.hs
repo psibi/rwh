@@ -7,3 +7,8 @@ instance MonadPlus Maybe where
     mplus Nothing x = x
     mplus x _ = x
 
+msum :: MonadPlus m => [m a] -> m a
+msum xs = foldr mplus mzero xs
+
+guard :: MonadPlus m => Bool -> m ()
+guard p = if p then return () else mzero

@@ -47,3 +47,9 @@ unless p s = when (not p) s
 -- ap and the lifting functions
 liftM :: (Monad m) => (a -> b) -> (m a -> m b)
 liftM f = \a -> do { a' <- a; return (f a')}
+
+liftM2 :: (Monad m) => (a -> b -> c) -> (m a -> m b -> m c)
+liftM2 f = \a b -> do { a' <- a; b' <- b; return (f a' b') }
+
+ap :: (Monad m) => m (a -> b) -> m a -> m b
+ap = liftM2 ($)
