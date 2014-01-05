@@ -7,6 +7,10 @@ instance MonadPlus Maybe where
     mplus Nothing x = x
     mplus x _ = x
 
+instance MonadPlus [] where
+  mzero = []
+  mplus = (++)
+
 msum :: MonadPlus m => [m a] -> m a
 msum xs = foldr mplus mzero xs
 

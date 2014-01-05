@@ -7,6 +7,11 @@ instance Monad Maybe where
     (Just x) >>= f  = f x
     return x        = Just x
 
+instance Monad [] where
+  m >>= f = concatMap f m
+  return x = [x]
+  fail s = []
+
 --- Sequence Functions
 
 sequence :: Monad m => [m a] -> m [a]
