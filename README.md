@@ -1,4 +1,12 @@
-## Solutions to problems in [Real World Haskell](http://book.realworldhaskell.org/read/) book
+## Process involved in Learning Haskell
+
+* [Real World Haskell](http://book.realworldhaskell.org/read/)
+* [Learn You a Haskell](http://www.learnyouahaskell.com)
+* [Monad Transformers Step by Step](http://www.grabmueller.de/martin/www/pub/Transformers.en.html)
+* [All about Monads](http://www.haskell.org/haskellwiki/All_About_Monads)
+* [Typeclassopedia](www.haskell.org/haskellwiki/Typeclassopedia)
+
+### Solutions to problems in [Real World Haskell](http://book.realworldhaskell.org/read/) book
 
 My attempt to solve the exercises in the book as I read through each
 chapter of the book.
