@@ -45,4 +45,3 @@ convert :: String -> String
 convert s = let (Right str) = do {n <- parseHex s; toString n} `catchError` printError
             in str
   where printError e = return $ "At index" ++ (show (location e)) ++ ":" ++ (reason e)
-                  
