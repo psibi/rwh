@@ -1,6 +1,7 @@
 import Data.Conduit
 import qualified Data.Conduit.List as CL
 
+triple :: Monad m => Conduit a m a
 triple = do
   ma <- await
   case ma of
@@ -8,3 +9,12 @@ triple = do
     Just a -> do
       CL.sourceList [a, a, a]
       triple
+
+--- Exercise
+conduit :: Conduit Int IO Int
+conduit = do
+  ma <- await
+  case ma of
+    Nothing -> return ()
+    Just a -> CL.map (* a)
+
