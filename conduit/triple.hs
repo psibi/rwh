@@ -10,6 +10,11 @@ triple = do
       CL.sourceList [a, a, a]
       triple
 
+--- Mini Exercise
+mytriple :: Monad m => Conduit a m a
+mytriple = awaitForever $ \i -> do
+             CL.sourceList [i, i, i]
+
 --- Exercise
 conduit :: Conduit Int IO Int
 conduit = do
@@ -18,3 +23,4 @@ conduit = do
     Nothing -> return ()
     Just a -> CL.map (* a)
 
+main = CL.sourceList [1..4] $$ mytriple =$ CL.mapM_ print
