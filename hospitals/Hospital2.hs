@@ -11,6 +11,7 @@ import Data.Aeson
 import EndPoint hiding (main)
 import Data.Definitions
 import Network.HTTP.Conduit
+import Numeric (showFloat)
 
 govtHospitalTag = TagText "GOVERNMENT HOSPITALS - CHENNAI" :: Tag String
 privateHospitalTag = TagText "PRIVATE HOSPITALS" :: Tag String
@@ -20,11 +21,11 @@ data HospitalType = Government | Private
                   deriving (Show)
 
 data Hospital = Hospital {
-  hospitalName :: String,
-  hospitalAddress :: String,
-  hospitalType :: HospitalType,
-  hospitalPhone :: Maybe String,
-  hospitalLocation :: Maybe String -- Lat/Long
+  hospitalName :: !String,
+  hospitalAddress :: !String,
+  hospitalType :: !HospitalType,
+  hospitalPhone :: !(Maybe String),
+  hospitalLocation :: !(Maybe String) -- Lat/Long
   } deriving (Show)
 
 instance ToJSON HospitalType where
@@ -80,10 +81,10 @@ feedLatLon hosp = do
     Right [] -> return hosp
     Right (x:xs) -> return $ hosp {hospitalLocation = Just $ latLontoString x}
   where req = NominatimRequest Nothing (hospitalAddress hosp)
-        hproxy = Just $ Proxy "127.0.0.1" 3129
+        hproxy = Nothing -- Just $ Proxy "127.0.0.1" 3129
 
-        latLontoString resp = (show $ longitude resp) ++ "," ++
-                              (show $ latitude resp)
+        latLontoString resp = (showFloat (longitude resp) ",") ++ 
+                              (showFloat (latitude resp) "")
 
 main :: IO ()
 main = do
