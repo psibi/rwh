@@ -1,3 +1,5 @@
+{-# LANGUAGE GADTs #-}
+
 data Expr a where
   I :: Int -> Expr Int
   B :: Bool -> Expr Bool
