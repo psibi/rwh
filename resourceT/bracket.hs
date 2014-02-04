@@ -1,5 +1,7 @@
 import Control.Exception (bracket)
 
+-- See type of bracket do understand it more clearly.
+
 main = do
     bracket
         (do
