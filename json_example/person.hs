@@ -2,6 +2,8 @@
 
 --- Example of Nested JSON
 
+--- ghci > decode test :: Maybe Person
+
 import Data.Aeson
 import Data.Text (Text)
 import Control.Applicative
