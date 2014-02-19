@@ -10,6 +10,11 @@ import qualified Data.Vector as V
 
 --- Example of Array within an object
 
+--- The best way to tackle these problem is by adapting the ADT to the
+  --- structure of the JSON.
+
+--- See this thread: http://stackoverflow.com/questions/16547783/parse-array-in-nested-json-with-aeson
+
 test = BL.pack "{ \"persons\": [{ \"name\":\"Joe\",\"age\":12}]}"
 
 data Person = Person
