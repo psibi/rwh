@@ -21,4 +21,15 @@ forkManaged (Mgr mgr) body =
       putMVar state (either Threw (const Finished) result)
     return (M.insert tid state m, tid)
 
+getStatus :: ThreadManager -> ThreadId -> IO (Maybe ThreadStatus)
+getStatus (Mgr mgr) tid =
+  modifyMVar mgr $ \m ->
+    case M.lookup tid m of
+      Nothing -> return (m, Nothing)
+      Just st -> tryTakeMVar st >>= \mst -> case mst of
+        Nothing -> return (m, Just Running)
+        Just sth -> return (M.delete tid m, Just sth)
+  
+                          
+
 
