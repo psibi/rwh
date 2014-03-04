@@ -39,6 +39,10 @@ waitFor (Mgr mgr) tid = do
   case maybeDone of
     Nothing -> return Nothing
     Just st -> Just `fmap` takeMVar st
+
+waitAll :: ThreadManager -> IO ()
+waitAll (Mgr mgr) = modifyMVar mgr elems >>= mapM_ takeMVar
+  where elems m = return (M.empty, M.elems  m)
     
 
   
