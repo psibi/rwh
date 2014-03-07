@@ -24,3 +24,14 @@ x' = (getX, setX)
 -- Point 10.0 4.0
 -- *Main> getL x' (Point 3.0 4.0)
 -- 3.0
+
+(^.) :: a -> Lens a b -> b
+a ^. p = getL p a
+
+(^=) :: Lens a b -> b -> a -> a
+(p ^= b) a = setL p b a
+
+-- *Main> (Point 3.0 4.0) ^. x'
+-- 3.0
+-- *Main> (x' ^= 10.0 ) (Point 3.0 4.0)
+-- Point 10.0 4.0
