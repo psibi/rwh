@@ -1,3 +1,5 @@
+import Control.Monad.State
+
 type Lens a b = (a -> b, b -> a -> a)
 
 getL :: Lens a b -> a -> b
@@ -35,3 +37,15 @@ a ^. p = getL p a
 -- 3.0
 -- *Main> (x' ^= 10.0 ) (Point 3.0 4.0)
 -- Point 10.0 4.0
+
+(^:=) :: Lens a b -> b -> State a ()
+p ^:= b = do
+  a <- get
+  let a' = setL p b a
+  put a'
+
+access :: Lens a b -> State a b
+access p = do
+  a <- get
+  let b = getL p a
+  return b
