@@ -1,3 +1,5 @@
+module Sorting where
+
 import Control.Parallel (par, pseq)
 
 sort :: (Ord a) => [a] -> [a]
