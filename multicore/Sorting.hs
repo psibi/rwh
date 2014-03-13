@@ -18,3 +18,10 @@ force :: [a] -> ()
 force xs = go xs `pseq` ()
   where go (_:xs) = go xs
         go [] = 1
+
+-- This is the code which I will generally end up with. Wake up Dude!
+sillySort :: (Ord a) => [a] -> [a]
+sillySort (x:xs) = greater `par` (lesser `pseq`
+                                  (lesser ++ x:greater))
+  where lesser = sillySort [y | y <- xs, y < x]
+        greater = sillySort [y | y <- xs, y >= x]
