@@ -13,12 +13,13 @@ testParser = do
   a <- integer
   char ','
   b <- integer
-  eol
   return $ Test a b
 
+testParserFile = endBy testParser eol
+  
 eol :: Parser Char
 eol = char '\n'
 
 main = do
-  a <- parseFromFile testParser "./jack.txt"
+  a <- parseFromFile testParserFile "./jack.txt"
   print a
