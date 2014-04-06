@@ -1,4 +1,4 @@
-import Control.Parallel (pseq)
+import Control.Parallel (pseq, par)
 
 forceList :: [a] -> ()
 forceList (x:xs) = x `pseq` forceList xs
@@ -17,3 +17,11 @@ forceList _ = ()
 -- ()
 -- ghci> :sprint a
 -- a = [(1 : _),(2 : _)]        (Here it evaluates to WHNF)
+
+parallelMap :: (a -> b) -> [a] -> [b]
+parallelMap f (x:xs) = let r = f x
+                       in r `par` r : parallelMap f xs
+parallelMap _ _ = []
+
+stricterMap :: (a -> b) -> [a] -> [b]
+stricterMap f xs = forceList xs `seq` map f xs
