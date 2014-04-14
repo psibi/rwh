@@ -40,4 +40,5 @@ setDegreeofLat = over latitude . set degree
 degreeofLat'Manually :: Lens' Location Int
 degreeofLat'Manually = lens getDegreeofLat (flip setDegreeofLat)
 
--- degreeofLat = latitude . degree
+degreeofLat :: Lens' Location Int
+degreeofLat = latitude . degree
