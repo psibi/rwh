@@ -13,4 +13,11 @@ makeLenses ''Meetup
 meetupLat :: Lens' Meetup Latitude
 meetupLat = location._1
 
+meetupLon :: Lens' Meetup Longitude
+meetupLon = location._2
 
+meetupName :: Meetup -> String
+meetupName m = view name m
+
+-- meetupName2 :: Meetup -> String
+-- meetupName2 m = name ^. m
