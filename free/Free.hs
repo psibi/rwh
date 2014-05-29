@@ -37,4 +37,16 @@ instance (Functor f) => Monad (Free f) where
   return = Pure
   (Pure r) >>= f = f r
   (Free x) >>= f = Free $ fmap (\y -> y >>= f) x
-  
+
+output' :: a -> Free (Toy a) ()
+output' x = Free (Output x (Pure ()))
+
+bell' :: Free (Toy a) ()
+bell' = Free $ Bell (Pure ())
+
+done' :: Free (Toy a) r
+done' = Free Done
+
+liftF :: (Functor f) => f r -> Free f r
+liftF command = Free $ fmap Pure command
+
