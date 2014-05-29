@@ -27,9 +27,9 @@ instance Functor (Toy c) where
 
 data IncompleteException = IncompleteException
 
-subroutine = Fix (Output 'A' (Throw IncompleteException)) :: FixE (Toy Char) IncompleteException
+subroutine' = Fix (Output 'A' (Throw IncompleteException)) :: FixE (Toy Char) IncompleteException
 
-program = subroutine `catch` (\_ -> Fix (Bell (Fix Done))) :: FixE (Toy Char) e
+program' = subroutine' `catch` (\_ -> Fix (Bell (Fix Done))) :: FixE (Toy Char) e
 
 data Free f r = Free (f (Free f r)) | Pure r
 
@@ -49,3 +49,25 @@ done' = Free Done
 
 liftF :: (Functor f) => f r -> Free f r
 liftF command = Free $ fmap Pure command
+
+output x = liftF (Output x ())
+bell = liftF (Bell ())
+done = liftF Done
+
+subroutine :: Free (Toy Char) ()
+subroutine = output 'A'
+
+program :: Free (Toy Char) r
+program = do
+  subroutine
+  bell
+  done
+
+showProgram :: (Show a, Show r) => Free (Toy a) r -> String
+showProgram (Free (Output a x)) = "output " ++ show a ++ "\n" ++ showProgram x
+showProgram (Free (Bell x)) = "bell\n" ++ showProgram x
+showProgram (Free Done) = "done\n"
+showProgram (Pure r) = "return " ++ show r ++ "\n"
+
+pretty :: (Show a, Show r) => Free (Toy a) r -> IO ()
+pretty = putStrLn . showProgram
