@@ -34,9 +34,9 @@ program' = subroutine' `catch` (\_ -> Fix (Bell (Fix Done))) :: FixE (Toy Char) 
 data Free f r = Free (f (Free f r)) | Pure r
 
 instance (Functor f) => Monad (Free f) where
-    return = Pure
-    (Free x) >>= f = Free (fmap (\y -> y >>= f) x)
-    (Pure r) >>= f = f r
+  return = Pure
+  (Pure r) >>= f = f r
+  (Free x) >>= f = Free $ fmap (\y -> y >>= f) x
 
 output' :: a -> Free (Toy a) ()
 output' x = Free (Output x (Pure ()))
@@ -71,3 +71,4 @@ showProgram (Pure r) = "return " ++ show r ++ "\n"
 
 pretty :: (Show a, Show r) => Free (Toy a) r -> IO ()
 pretty = putStrLn . showProgram
+
