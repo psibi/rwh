@@ -30,3 +30,11 @@ data IncompleteException = IncompleteException
 subroutine = Fix (Output 'A' (Throw IncompleteException)) :: FixE (Toy Char) IncompleteException
 
 program = subroutine `catch` (\_ -> Fix (Bell (Fix Done))) :: FixE (Toy Char) e
+
+data Free f r = Free (f (Free f r)) | Pure r
+
+instance (Functor f) => Monad (Free f) where
+  return = Pure
+  (Pure r) >>= f = f r
+  (Free x) >>= f = Free $ fmap (\y -> y >>= f) x
+  
