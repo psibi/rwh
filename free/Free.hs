@@ -1,3 +1,5 @@
+import Control.Monad (liftM)
+
 data Toy b next =
     Output b next
   | Bell next
@@ -72,3 +74,12 @@ showProgram (Pure r) = "return " ++ show r ++ "\n"
 pretty :: (Show a, Show r) => Free (Toy a) r -> IO ()
 pretty = putStrLn . showProgram
 
+data Thread m r = Atomic (m (Thread m r)) | Return r
+
+atomic :: (Monad m) => m a => Thread m a
+atomic x = Atomic (liftM Return x)
+
+instance (Monad m) => Monad (Thread m) where
+  return = Return
+  (Atomic m) >>= f = Atomic (liftM (>>= f) m)
+  (Return r) >>= f = f r
