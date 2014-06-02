@@ -76,7 +76,7 @@ pretty = putStrLn . showProgram
 
 data Thread m r = Atomic (m (Thread m r)) | Return r
 
-atomic :: (Monad m) => m a => Thread m a
+atomic :: (Monad m) => m a -> Thread m a
 atomic x = Atomic (liftM Return x)
 
 instance (Monad m) => Monad (Thread m) where
