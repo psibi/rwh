@@ -14,3 +14,24 @@ clientName client = case client of
   Company name _ _ _ -> name
   Individual person _ -> case person of
     Person fname lname -> fname ++ " " ++ lname
+
+responsibility :: Client -> String
+responsibility (Company _ _ _ r) = r
+responsibility _ = "Unknown"
+
+specialClient :: Client -> Bool
+specialClient (clientName -> "Sibi") = True
+specialClient (responsibility -> "Director") = True
+specialClient _ = False
+
+data ClientR = GovOrgR {clientRName :: String }
+             | CompanyR { clientRName :: String
+                        , companyId :: String
+                        , person :: PersonR
+                        , duty :: String }
+             | IndividualR { person :: PersonR }
+
+data PersonR = PersonR { firstName :: String
+                       , lastName :: String
+                       } deriving (Show)               
+
