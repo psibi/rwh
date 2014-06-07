@@ -1,3 +1,6 @@
+{-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE RecordWildCards #-}
 data Client = GovOrg String
             | Company String Integer Person String
             | Individual Person Bool
@@ -35,3 +38,20 @@ data PersonR = PersonR { firstName :: String
                        , lastName :: String
                        } deriving (Show)               
 
+
+-- Normal pattern matching
+
+greet :: ClientR -> String
+greet IndividualR { person = PersonR { firstName = fn }} = "Hi, " ++ fn
+greet CompanyR { clientRName = c} = "Hello, " ++ c
+greet GovOrgR {} = "Welcome"
+
+-- NamedFieldPuns pattern matching
+greet1 IndividualR { person = PersonR { firstName }} = "Hi, " ++ firstName
+greet1 CompanyR { clientRName } = "Hello, " ++ clientRName
+greet1 GovOrgR { } = "Welcome"
+
+-- RecordWildCards
+greet2 IndividualR { person = PersonR { .. }} = "Hi, " ++ firstName
+greet2 CompanyR { .. } = "Hello, " ++ clientRName
+greet2 GovOrgR { } = "Welcome"
