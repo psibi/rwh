@@ -55,3 +55,9 @@ instance Applicative (IterV e1) where
   (Done f str) <*> i2 = fmap f i2
   (Cont k) <*> i2 = Cont (\x -> k x <*> i2)
 
+instance Monad (IterV e1) where
+  return x = Done x Empty
+  Done x str >>= f = case (f x) of
+    Done x' _ -> Done x' str
+    Cont k -> k str
+  Cont k >>= f = Cont (\x -> k x >>= f)
