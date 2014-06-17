@@ -1,4 +1,5 @@
 import Control.Applicative
+import Data.Maybe (catMaybes)
 
 data StreamG el = Empty | El el | EOF
 data IterV el a = Done a (StreamG el)
@@ -17,8 +18,8 @@ run (Cont k) = run' (k EOF)
   where run' (Done x _) = Just x
         run' _ = Nothing
 
-head :: IterV e1 (Maybe e1)
-head = Cont step
+headi :: IterV e1 (Maybe e1)
+headi = Cont step
   where
     step (El e) = Done (Just e) Empty
     step EOF = Done Nothing EOF
@@ -61,3 +62,10 @@ instance Monad (IterV e1) where
     Done x' _ -> Done x' str
     Cont k -> k str
   Cont k >>= f = Cont (\x -> k x >>= f)
+
+drop1keep1 :: IterV e1 (Maybe e1)
+drop1keep1 = dropi 1 >> headi
+
+alternates :: IterV e1 [e1]
+alternates = fmap catMaybes . sequence . replicate 5 $ drop1keep1
+
