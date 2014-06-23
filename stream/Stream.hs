@@ -71,3 +71,20 @@ instance MonadTrans (Sink a) where
 awaitS :: (Monad m) => Sink a m a
 awaitS =  Sink $ return $ AwaitS (\x -> Sink $ return $ (ReturnS x))
   
+display :: Int -> Sink String IO ()
+display n = replicateM_ n $ do
+  str <- awaitS
+  lift $ putStrLn str
+
+($$) :: Monad m => Generator a m r -> Sink a m r -> m r
+g $$ s = do
+  x <- nextS s
+  case x of
+    AwaitS k -> do
+      y <- nextG g
+      case y of
+        YieldG a g' -> g' $$ k a
+        ReturnG r -> return r
+    ReturnS r -> return r
+
+-- test
