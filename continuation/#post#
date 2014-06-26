@@ -1,0 +1,44 @@
+Tracing Continuation Passing Style:
+
+This is the following piece of code which I can find from wikibooks
+for explaining CPS:
+<div class="code">
+-- We assume CPS versions of the add and square primitives,
+-- (note: the actual definitions of add_cps and square_cps are not
+-- in CPS form, they just have the correct type)
+
+add_cps :: Int -> Int -> (Int -> r) -> r
+add_cps x y = \k -> k (add x y)      -- k points to function
+ 
+square_cps :: Int -> (Int -> r) -> r
+square_cps x = \k -> k (square x)
+ 
+pythagoras_cps :: Int -> Int -> (Int -> r) -> r
+pythagoras_cps x y = \k ->
+ square_cps x $ \x_squared ->      
+ square_cps y $ \y_squared ->
+ add_cps x_squared y_squared $ k
+</div>
+
+Note that the comments in the code are interesting: Only
+<b>pythagoras_cps</b> is actually in CPS form. Also, x_squared has a
+type of <b>Int</b>. It actually is the squared integer <b>x</b>. But
+how does that happen ? Look at the type signature of
+<b>square_cps</b>: there is no way it can be something else!
+
+Let's play this up in <b>ghci</b>:
+<div class="code">
+λ> pythagoras_cps 3 4 print
+25
+</div>
+ 
+Ok, now let's apply some equational reasoning to the code:
+
+>> pythagoras_cps 3 4
+>> \k -> square_cps 3 $ \x_squared ->
+         square_cps 4 $ \y_squared ->
+         add_cps x_squared y_squared $ k
+>> \k -> \e -> e 9  $ \x_squared ->
+         \f -> f 16 $ \y_squared ->
+         add_cps x_squared y_squared $ k
+>> 
