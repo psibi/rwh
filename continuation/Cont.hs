@@ -1,3 +1,6 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
+
 add :: Int -> Int -> Int
 add x y = x + y
 
@@ -27,3 +30,16 @@ thrice_cps f_cps x = \k ->
   f_cps x $  \fx ->
   f_cps fx $ \ffx ->
   f_cps ffx $ k
+
+chainCPS :: ((a -> r) -> r) -> (a -> ((b -> r) -> r)) -> ((b -> r) -> r)
+chainCPS s f = \k -> s $ \x -> f x $ k
+
+newtype Cont r a = Cont { runCont :: (a -> r) -> r }
+
+cont :: ((a -> r) -> r) -> Cont r a
+cont f = Cont f
+
+instance Monad (Cont r) where
+  return x = cont ($ x)
+  (Cont s) >>= f = Cont $ \b -> s $ \a -> runCont (f a) $ b
+
