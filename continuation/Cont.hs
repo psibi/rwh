@@ -1,6 +1,3 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-
-
 add :: Int -> Int -> Int
 add x y = x + y
 
@@ -42,4 +39,5 @@ cont f = Cont f
 instance Monad (Cont r) where
   return x = cont ($ x)
   (Cont s) >>= f = Cont $ \b -> s $ \a -> runCont (f a) $ b
+
 
