@@ -40,4 +40,8 @@ instance Monad (Cont r) where
   return x = cont ($ x)
   (Cont s) >>= f = Cont $ \b -> s $ \a -> runCont (f a) $ b
 
+callCC :: ((a -> Cont r b) -> Cont r a) -> Cont r a
+callCC f = Cont $ \h -> runCont (f (\a -> Cont $ \_ -> h a)) h
 
+-- f :: (a -> Cont r b)  or (a -> ((b -> r) -> r))
+-- h :: a -> r
