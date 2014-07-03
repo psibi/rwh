@@ -26,3 +26,28 @@ area r = pi * (square r)
 -- ( succ (pred ( succ (pred (pred zero)))))
 -- ( succ (pred (pred zero)))
 -- ( pred zero)
+
+-- Notes
+
+-- A type variable can be instantiated to different types in different
+-- variables. In id function, it takes type variable a and gives type
+-- variable a.
+
+-- 1.4.1
+-- integral :: Num a -> a -> a
+
+-- 1.4.2
+-- (+)
+-- (+) because of currying!
+-- fmap :-)
+
+-- 1.4.3
+sign :: (Num a, Ord a) => a -> a
+sign x = if x >=0
+         then 1
+         else 0
+
+-- 1.4.4
+-- one :: a -> Integer
+-- apply :: (a -> b) -> a -> b
+-- compose :: (a -> b) -> (c -> a) -> b
