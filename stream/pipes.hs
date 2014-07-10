@@ -16,33 +16,24 @@ data Snap = Snap {
   slength :: Int
   }
 
-tab :: Parser Char
-tab = char '\t'
+getSnaps :: LinkID -> [Link] -> [Snap] -> [(LinkID, [Snap])]
+getSnaps l lks snp = map (\x -> (lid x, filter (\y -> lid x == slid y) snp)) a
+  where a = filter (\x -> lid x > l) lks
 
-linkParser :: Parser Link
-linkParser = do
-  a <- decimal
-  tab
-  b <- decimal
-  return $ Link a b
 
-snapParser :: Parser Snap
-snapParser = do
-  a <- decimal
-  tab
-  b <- decimal
-  return $ Snap a b
+psnap :: Producer Snap IO ()
+psnap = undefined
 
-getLengths :: Monad m => LinkID -> Pipe Link Int m ()
-getLengths n = do
-  l <- await
-  if (lid l > n )
-    then yield (llength l)
-    else getLengths n
+plink :: Producer Link IO ()
+plink = undefined
 
-getSnap :: Monad m => Int -> Pipe Snap Snap m ()
-getSnap l = do
-  s <- await
-  if (l == slength s)
-    then yield s
-    else getSnap l
+getLinkIDS :: LinkID -> Pipe Link LinkID IO ()
+getLinkIDS l = do
+  link <- await
+  if (lid link > l)
+    then yield (lid link)
+    else getLinkIDS l
+
+filteredLinkIDs :: Producer LinkID IO ()
+filteredLinkIDs = plink >-> getLinkIDS 3
+
