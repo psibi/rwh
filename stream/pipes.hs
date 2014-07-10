@@ -1,7 +1,8 @@
-import Data.Attoparsec.Text
-import Pipes
-import Pipes.Attoparsec
-import Pipes.Text.IO (fromHandle)
+import           Data.Attoparsec.Text
+import           Pipes
+import           Pipes.Attoparsec
+import qualified Pipes.Prelude as P
+import           Pipes.Text.IO (fromHandle)
 import qualified System.IO as IO
 
 type LinkID = Int
@@ -37,3 +38,5 @@ getLinkIDS l = do
 filteredLinkIDs :: Producer LinkID IO ()
 filteredLinkIDs = plink >-> getLinkIDS 3
 
+-- ker :: LinkID -> Pipe Snap Snap IO () -> Pipe Snap Snap IO ()
+ker lid  = P.filter (\x -> slid x == lid)
