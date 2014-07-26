@@ -63,6 +63,5 @@ instance Applicative (EitherIO e) where
 
 instance Monad (EitherIO e) where
   return = EitherIO . return . return
-  (EitherIO x) >>= f = EitherIO $ x >>= \x' -> case x' of
-    Right y -> runEitherIO $ f y
-    Left z -> return $ Left z
+  (EitherIO x) >>= f = EitherIO $ x >>= either (return . Left) (runEitherIO . f)
+
