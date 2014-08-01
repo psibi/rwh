@@ -28,3 +28,14 @@ isPerfectNumber x = sum (factor x) == x
 
 allPerfectNumbers :: [Integer]
 allPerfectNumbers = filter isPerfectNumber [1..]
+
+primes :: [Integer]
+primes = filter isPrime [2..]
+
+triplets :: [Integer] -> [(Integer, Integer, Integer)]
+triplets [] = []
+triplets (x:[]) = []
+triplets (x:y:[]) = []
+triplets (x:y:z:rest) = if (y - x == 2 && z - y == 2)
+                        then (x,y,z):triplets (y:z:rest)
+                        else triplets (y:z:rest)
