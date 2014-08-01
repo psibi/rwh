@@ -22,3 +22,9 @@ testData = do
   let dummyData = [1..10]
       dat2 = map (\x -> (x, isPrime $ ex2a x, isPrime $ ex2b x)) dummyData
   mapM_ print dat2
+
+isPerfectNumber :: Integral a => a -> Bool
+isPerfectNumber x = sum (factor x) == x
+
+allPerfectNumbers :: [Integer]
+allPerfectNumbers = filter isPerfectNumber [1..]
