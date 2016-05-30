@@ -1,6 +1,7 @@
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as BC
-import qualified Data.Vector as V
+import Data.Sequence
+import qualified Data.Sequence as S
 import Data.ByteString.Char8 (readInt)
 import Data.Maybe (fromJust)
 import Data.Bits (xor)
@@ -8,19 +9,19 @@ import Data.Bits (xor)
 calculateIndex :: Int -> Int -> Int -> Int
 calculateIndex x lastAns n = ((x `xor` lastAns) `mod` n)
 
-replaceIndex :: Int -> a -> V.Vector a -> V.Vector a
-replaceIndex index item xs = xs V.// [(index, item)]
+replaceIndex :: Int -> a -> Seq a -> Seq a
+replaceIndex index item xs = S.update index item xs
 
-queryOne ::  Int -> Int -> V.Vector (V.Vector Int) -> Int -> Int -> V.Vector (V.Vector Int)
+queryOne ::  Int -> Int -> Seq (Seq Int) -> Int -> Int -> Seq (Seq Int)
 queryOne n lastAns seq x y = let index = calculateIndex x lastAns n
-                                 item = (seq V.! index) `V.snoc` y
+                                 item = (seq `S.index` index) |> y
                              in replaceIndex index item seq
 
-queryTwo :: Int -> Int -> V.Vector (V.Vector Int) -> Int -> Int -> IO (V.Vector (V.Vector Int), Int)
+queryTwo :: Int -> Int -> Seq (Seq Int) -> Int -> Int -> IO (Seq (Seq Int), Int)
 queryTwo n lastAns seq x y = do
     let index = calculateIndex x lastAns n
-        item = (seq V.! index)
-        lastAns' = item V.! (y `mod` V.length item) 
+        item = (seq `S.index` index)
+        lastAns' = item `S.index` (y `mod` S.length item) 
     print lastAns'
     return (replaceIndex index item seq, lastAns')
 
@@ -41,7 +42,7 @@ getQuery = do
   let fLine = map fastInt $ BC.split ' ' firstLine
   return fLine
 
-processQuery :: Int -> Int -> Int -> V.Vector (V.Vector Int) -> IO ()
+processQuery :: Int -> Int -> Int -> Seq (Seq Int) -> IO ()
 processQuery n q lastAns seq = if (q == 0)
                                then return ()
                                else
@@ -60,5 +61,5 @@ processQuery n q lastAns seq = if (q == 0)
 main :: IO ()
 main = do
   (n,q) <- getInitialData
-  let seq = V.generate 10 (\x -> V.empty) :: V.Vector (V.Vector Int)
+  let seq =  S.replicate n (S.empty) :: (Seq (Seq a))
   processQuery n q 0 seq
