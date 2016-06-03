@@ -14,5 +14,6 @@ render :: MyRoute -> [(Text, Text)] -> Text
 render Home _ = "/home"
 
 template = $(hamletFileReload "template.hamlet")
+    where name = "sibi" :: String
 
 

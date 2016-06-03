@@ -4,4 +4,4 @@ $doctype 5
         <title>i18n
     <body>
         <h1>hello
-        <p>hi
+        <p>hi #{name}
