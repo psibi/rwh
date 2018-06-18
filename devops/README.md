@@ -27,6 +27,7 @@
 * [Getting Started Guide](https://vsupalov.com/getting-started-with-kubernetes/)
 * [Interesting articles](https://akomljen.com/tag/kubernetes/)
 * [DO - Introduction to Kubernetes](https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes)
+* [Udacity course](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
 # CI/CD
 
