@@ -33,6 +33,10 @@
 
 * [Official guide](https://docs.saltstack.com/en/getstarted/fundamentals/index.html)
 
+# Ansible
+
+* [Youtube Video](https://www.youtube.com/watch?v=icR-df2Olm8)
+
 # CI/CD
 
 * [Beginner guide to Jenkins Pipeline](https://www.reddit.com/r/devops/comments/7u3zk7/a_beginners_guide_to_jenkins_pipeline/)
