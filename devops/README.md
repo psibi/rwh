@@ -29,6 +29,10 @@
 * [DO - Introduction to Kubernetes](https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes)
 * [Udacity course](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
+# SaltStack
+
+* [Official guide](https://docs.saltstack.com/en/getstarted/fundamentals/index.html)
+
 # CI/CD
 
 * [Beginner guide to Jenkins Pipeline](https://www.reddit.com/r/devops/comments/7u3zk7/a_beginners_guide_to_jenkins_pipeline/)
