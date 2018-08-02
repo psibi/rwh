@@ -52,3 +52,11 @@
 * [C10K Problem](http://www.kegel.com/c10k.html)
 
 
+# AWS
+
+* [ARN and namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+* [AWS CLI Configuration and Credential files](https://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+* [AWS Cli Profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html)
+* [Assuming a role via AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html)
+* [Shared Credential file/CLI config file doc](https://docs.aws.amazon.com/cli/latest/topic/config-vars.html)
+*  `aws iam list-virtual-mfa-devices --profile admin`
