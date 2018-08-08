@@ -15,6 +15,7 @@
 # Terraform articles
 
 * https://blog.gruntwork.io/an-introduction-to-terraform-f17df9c6d180
+* [Terraform - Count related doc](https://www.terraform.io/docs/configuration/resources.html)
 
 # Consul
 
@@ -60,3 +61,4 @@
 * [Assuming a role via AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html)
 * [Shared Credential file/CLI config file doc](https://docs.aws.amazon.com/cli/latest/topic/config-vars.html)
 *  `aws iam list-virtual-mfa-devices --profile admin`
+* [Ingress vs Egress](https://en.wikipedia.org/wiki/Egress_filtering)
