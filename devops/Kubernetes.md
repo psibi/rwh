@@ -236,3 +236,25 @@ $ curl -k https://x.x.x.x
 
 You likely need to allow 443 port access in AWS security group for the last curl command to work.
 
+# Scaling
+
+Done by updating the replicas.
+
+$ kubectl get replicasets
+$ kubectl get pods -l "app=hello,track=stable"
+$ emacs deployments/hello.yaml # And change replicasets to 3
+$ kubectl apply -f deployments/hello.yaml
+
+See new replicasets:
+
+$ kubectl get replicasets
+$ kubectl get pods
+$ kubectl describle deployment hello
+
+# Rolling Update
+
+$ emacs deployments/auth.yaml # Change docker image version to 2.0.0
+$ kubectl apply -f deployments/auth.yaml
+$ kubectl describe deployments auth
+
+
