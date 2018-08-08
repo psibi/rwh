@@ -184,5 +184,55 @@ $ kubectl label pods secure-monolith "secure=enabled"
 pod/secure-monolith labeled
 ```
 
+After adding the corresponding AWS terraform rule:
 
+``` terra
+resource "aws_security_group_rule" "port_testing_access" {
+  description              = "https test"
+  from_port                = "31000"
+  protocol                 = "tcp"
+  security_group_id        = "${aws_security_group.demo-node.id}"
+  cidr_blocks              = ["0.0.0.0/0"]
+  to_port                  = "31000"
+  type                     = "ingress"
+}
+```
+
+And after applying the plan, you can do the curl to it:
+
+```
+$ curl -k https://x.x.x.x:31000
+{"message":"Hello"}
+```
+
+Note that if you have two different 
+
+# Deployments
+
+* Drive current state towards desired state
+* You can provide replicas.
+
+``` terra
+$ kubectl create -f deployments/auth.yaml
+deployment.extensions/auth created
+
+$ kubectl describe deployments auth
+```
+
+Other tasks:
+
+``` shellsession
+$ kubectl create -f services/auth.yaml
+$ kubectl create -f deployments/hello.yaml
+$ kubectl create -f services/hello.yaml
+$ kubectl create configmap nginx-frontend-conf --from-file=nginx/frontend.conf
+$ kubectl create -f deployments/frontend.yaml
+$ kubectl create -f services/frontend.yaml
+$ kubectl get services frontend
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)         AGE
+frontend   LoadBalancer   172.20.146.42   aaff20c7e9ae811e8af0a02501deeb42-2031620562.us-west-2.elb.amazonaws.com   443:31133/TCP   31s
+$ curl -k https://x.x.x.x
+```
+
+You likely need to allow 443 port access in AWS security group for the last curl command to work.
 
