@@ -240,21 +240,26 @@ You likely need to allow 443 port access in AWS security group for the last curl
 
 Done by updating the replicas.
 
+``` shellsession
 $ kubectl get replicasets
 $ kubectl get pods -l "app=hello,track=stable"
 $ emacs deployments/hello.yaml # And change replicasets to 3
 $ kubectl apply -f deployments/hello.yaml
+```
 
 See new replicasets:
 
+``` shellsession
 $ kubectl get replicasets
 $ kubectl get pods
 $ kubectl describle deployment hello
+```
 
 # Rolling Update
 
+``` shellsession
 $ emacs deployments/auth.yaml # Change docker image version to 2.0.0
 $ kubectl apply -f deployments/auth.yaml
 $ kubectl describe deployments auth
-
+```
 
