@@ -22,6 +22,8 @@ kubectl describe pods
 kubectl port-forward monolith 10080:80
 ```
 
+Note that `80` is the port on which it exposes within the container.
+
 And in your local system:
 
 ``` shellsession
@@ -263,3 +265,20 @@ $ kubectl apply -f deployments/auth.yaml
 $ kubectl describe deployments auth
 ```
 
+# Further Reading
+
+* [Yaml file and K8 object](https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+* Regarding the POD host name: [DNS Pod Service](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
+* [Different Ports for a service](https://vitalflux.com/kubernetes-port-targetport-and-nodeport/)
+* [Difference between POD and Deployment](https://stackoverflow.com/q/41325087/1651941)
+* Check docker image -
+```
+docker run -p 2000:80 udacity/example-monolith:1.0.0
+```
+
+Inside docker image, it runs on port 80.
+```
+~ $ curl localhost:2000
+{"message":"Hello"}
+```
+* it's important for the service selector (spec.selector) to match with pod's labels (metadata.labels) to work.
