@@ -22,6 +22,12 @@ kubectl describe pods
 kubectl port-forward monolith 10080:80
 ```
 
+Or
+
+```
+kubectl port-forward $POD_NAME 10080:80
+```
+
 Note that `80` is the port on which it exposes within the container.
 
 And in your local system:
