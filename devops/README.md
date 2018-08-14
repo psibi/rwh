@@ -29,6 +29,7 @@
 * [Interesting articles](https://akomljen.com/tag/kubernetes/)
 * [DO - Introduction to Kubernetes](https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes)
 * [Udacity course](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
+* [Environment variables for containers](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
 
 # SaltStack
 

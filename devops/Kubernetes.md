@@ -271,7 +271,8 @@ $ kubectl describe deployments auth
 * Regarding the POD host name: [DNS Pod Service](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 * [Different Ports for a service](https://vitalflux.com/kubernetes-port-targetport-and-nodeport/)
 * [Difference between POD and Deployment](https://stackoverflow.com/q/41325087/1651941)
-* Check docker image -
+* [NodePort vs LoadBalancer vs Ingress](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)
+1* Check docker image -
 ```
 docker run -p 2000:80 udacity/example-monolith:1.0.0
 ```
