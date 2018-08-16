@@ -278,7 +278,11 @@ $ kubectl describe deployments auth
 * [Different Ports for a service](https://vitalflux.com/kubernetes-port-targetport-and-nodeport/)
 * [Difference between POD and Deployment](https://stackoverflow.com/q/41325087/1651941)
 * [NodePort vs LoadBalancer vs Ingress](https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0)
-1* Check docker image -
+
+Notes:
+
+* Check docker image:
+
 ```
 docker run -p 2000:80 udacity/example-monolith:1.0.0
 ```
@@ -288,4 +292,5 @@ Inside docker image, it runs on port 80.
 ~ $ curl localhost:2000
 {"message":"Hello"}
 ```
-* it's important for the service selector (spec.selector) to match with pod's labels (metadata.labels) to work.
+
+* It's important for the service selector (spec.selector) to match with pod's labels (metadata.labels) to work.
