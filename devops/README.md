@@ -31,6 +31,7 @@
 * [Udacity course](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 * [Environment variables for containers](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
 * [Helm](https://medium.com/@gajus/the-missing-ci-cd-kubernetes-component-helm-package-manager-1fe002aac680)
+* [Ports in services](https://stackoverflow.com/a/49982009/1651941)
 
 # Webapp + Kubernetes
 
