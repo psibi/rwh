@@ -32,6 +32,12 @@
 * [Environment variables for containers](https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/)
 * [Helm](https://medium.com/@gajus/the-missing-ci-cd-kubernetes-component-helm-package-manager-1fe002aac680)
 
+# Webapp + Kubernetes
+
+* [Using external IP of LB service](https://stackoverflow.com/questions/48291745/how-do-i-find-out-the-external-ip-of-a-load-balancer-service)
+* https://github.com/helm/helm/issues/949 - Problematic issue
+* [Preserving client IP](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
+
 # SaltStack
 
 * [Official guide](https://docs.saltstack.com/en/getstarted/fundamentals/index.html)
