@@ -51,6 +51,36 @@ Mathematically,
 
 1 left shift = num * 2
 2 left shift = num * 4
+
+``` haskell
+λ> let x = 0x01 :: Word16
+λ> (x `shiftL` 3) + (x `shiftL` 12)
+4104
+λ> (x `shiftL` 3)
+8
+λ> (x `shiftL` 12)
+4096
+λ> 0b0000000000001000
+8
+λ> 0b0001000000000000
+4096
+```
+
+Addition:
+
+0000000000001000
+0001000000000000
+
+-------------------
+0001000000001000
+
+In repl:
+
+``` haskell
+λ> 0b0001000000001000
+4104
+```
+
    
 # shiftR 8
    
@@ -61,7 +91,7 @@ In repl:
    
 ``` haskell
 λ> let y = 0b0000000000000000 :: Word16
-λ> y                 
+λ> y              
 0
 ```
                      
