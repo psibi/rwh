@@ -63,6 +63,13 @@ Continously see logs:
 ``` shellsession
 kubectl logs -f monolith
 ```
+
+If there are multiple containers within the pod and you want to see logs of a specific container:
+
+``` shellsession
+kubectl logs -f monolith -c container-name
+```
+
 # Secrets and Configmaps
 
 ``` shellsession

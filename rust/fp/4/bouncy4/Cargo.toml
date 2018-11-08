@@ -1,0 +1,7 @@
+[package]
+name = "bouncy4"
+version = "0.1.0"
+authors = ["Sibi Prabakaran <sibi@psibi.in>"]
+
+[dependencies]
+pancurses = "0.16.0"
