@@ -74,26 +74,26 @@
 * Note that you need to have MFA serial for the role you have initially.
 * Also, you need to find the Role ARN for which you need access (or switch or assume) to.
 * Also, you need to generate secret access tokens for the things you initially have.
-* Let's assume, a user named "sibi" has been created and he needs to assume the role of "power-user" to do some operations. Then you need to find the MFA serial and the access keys for the user "sibi" and the Role ARN for the "power-user" role:
+* Let's assume, a user named "sibi" has been created and he needs to assume the role of "power-user" for some arbitray account to do some operations. Then you need to find the MFA serial and the access keys for the user "sibi" and the Role ARN for the "power-user" role of that particular account:
   ```
   # ~/.aws/config
   [profile company-power-user]
   role_arn=arn:aws:iam::xxxx92:role/power-user
   source_profile=sibi
   mfa_serial=arn:aws:iam::xxx992:mfa/sibi
-  
+
   # ~/.aws/credentials
   [sibi]
   aws_access_key_id=xxxxxxxxxx
   aws_secret_access_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   ```
-  
+
   And then you can have something like `aws-env.config` in the directory you are going to use `aws-env`:
   ```
   profile=company-power-user
   role_arn = arn:aws:iam::xxxx92:role/power-user
   ```
-  
+
   And then you can invoke `aws-env -- aws s3 ls`
 * Finding Role ARN:
   - Go the AWS Console
