@@ -33,3 +33,8 @@ fn main() {
 # Other points
 
 * Unlike tuples and built in array, collections like vector, hashmap and string are stored in the heap.
+* Unlike functions, closures can capture values from the scope in which they're defined.
+
+# Other Resources
+
+* [Rust Cheat Sheet](https://cheats.rs/)
