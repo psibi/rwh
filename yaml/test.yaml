@@ -1,3 +1,6 @@
+packages:
+  - "path1"
+  - "path2"
 docker:
   enable: true
   repo: fpco/stack-full
