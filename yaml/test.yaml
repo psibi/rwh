@@ -4,6 +4,10 @@ packages:
 docker:
   enable: true
   repo: fpco/stack-full
+nested:
+  paths:
+    - "fpco/stack-base" # see ./etc/docker/stack-base/Dockerfile
+    - "fpco/stack-test"
 image:
   containers:
     - base: "fpco/stack-base" # see ./etc/docker/stack-base/Dockerfile

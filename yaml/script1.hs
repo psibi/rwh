@@ -9,15 +9,26 @@ import Data.Yaml
 
 
 data Config = Config {
-      cfPackages :: [FilePath]
+      cfPackages :: [FilePath],
+      cfNestedPaths :: [FilePath],
+      dockerEnable :: Bool
+    -- , cfContainers :: [String]
 } deriving Show
 
 parseYamlFile :: Value -> Parser Config
 parseYamlFile val = withObject "sample.stack yaml file"
                     (\obj -> do
                        packages <- obj .:? "packages" .!= []
+                       imgs <-  obj .: "nested"
+                       img <- withObject "image object" (\img -> do
+                                                           img .: "paths"
+                                                        ) imgs
+                       docker <- obj .: "docker"
+                       dockerEnab <- withObject "enable" (\enable -> enable .: "enable") docker
                        return $ Config {
-                                    cfPackages = packages
+                                    cfPackages = packages,
+                                    cfNestedPaths = img,
+                                    dockerEnable = dockerEnab
                                   }
                     ) val
 
