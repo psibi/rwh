@@ -8,13 +8,17 @@ import Data.Text
 import Data.Yaml
 
 
-data Packages = Packages [FilePath] deriving Show
+data Config = Config {
+      cfPackages :: [FilePath]
+} deriving Show
 
-parseYamlFile :: Value -> Parser Packages
+parseYamlFile :: Value -> Parser Config
 parseYamlFile val = withObject "sample.stack yaml file"
                     (\obj -> do
                        packages <- obj .:? "packages" .!= []
-                       return $ Packages packages
+                       return $ Config {
+                                    cfPackages = packages
+                                  }
                     ) val
 
 main :: IO ()
