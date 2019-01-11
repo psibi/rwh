@@ -39,16 +39,12 @@ isKoolObject :: Value -> Bool
 isKoolObject (Object xs) = HM.member "kool" xs
 isKoolObject _ = False
 
-getObjectFromArray :: Value -> Value
-getObjectFromArray (Array xs) = Array (Vector.filter isKoolObject xs)
-getObjectFromArray _ = error "sorry"
-
 parseYamlFile :: Value -> Parser (NonEmpty Item)
 parseYamlFile val = withObject "sample.stack"
                     (\obj -> do
                        sample <- obj .: "sample"
                        withArray "sample array" (\(vector') -> do
-                                                   let (Array vector) = getObjectFromArray (Array vector')
+                                                   let vector = Vector.filter isKoolObject vector'
                                                        j :: Vector (Parser (NonEmpty Item)) = Vector.map (\((Object v)) -> do
                                                                                                  v' <- v .: "kool"
                                                                                                  v'' :: NonEmpty Item <- parseJSON v'
