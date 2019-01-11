@@ -1,0 +1,6 @@
+sample:
+ - kool:
+   - a: 1
+     b: hello
+   - a: 2
+     b: bye

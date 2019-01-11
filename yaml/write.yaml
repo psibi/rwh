@@ -1,0 +1,14 @@
+image:
+  containers:
+  - base: fpco/stack-base
+    name: fpco/stack-test
+nested:
+  paths:
+  - fpco/stack-base
+  - fpco-stack-test
+packages:
+- path1
+- path2
+docker:
+  enable: true
+  repo: fpco/stack-full
