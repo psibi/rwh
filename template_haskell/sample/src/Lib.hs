@@ -23,3 +23,10 @@ genSampleInt = do
   let si = mkName "sampleInt"
   return $
     [SigD si (ConT ''Int), ValD (VarP si) (NormalB (LitE (IntegerL 3))) []]
+-- That's all it takes. See the 'Test.hs' module in which the code is generated.
+-- Let's test that in ghci:
+-- λ> import Test
+-- λ> :t sampleInt
+-- sampleInt :: Int
+-- λ> sampleInt
+-- 3
