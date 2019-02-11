@@ -13,3 +13,5 @@ $(genSampleInt3 8)
 $(genSampleInt4 2)
 
 $(genSampleInt5 (\x -> 99) 4)
+
+$(genSampleInt6 (\x -> 99) 4)

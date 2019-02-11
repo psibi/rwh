@@ -75,3 +75,14 @@ genSampleInt5 comb x =
 
   sampleInt5 :: Int
   sampleInt5 = f |]
+
+-- Can the function be dynamically generated in genSampleInt5 ? Let's try that out
+genSampleInt6 :: (Int -> Int) -> Int -> Q [Dec]
+genSampleInt6 comb x =
+  let f = comb x
+      funName = mkName "sampleInt6"
+   in [d|
+
+  funName :: Int
+  funName = f |]
+-- The above code will not work. It will generate a function named `funName`
