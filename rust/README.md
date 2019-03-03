@@ -1,12 +1,18 @@
+# Rust notes
+
 Type of parameters:
 
+``` rust
 fn foo(age: u32) {}
 fn foo1(mut age: u32) {}
+```
 
 The caller of the function will move the `age` value into the function (regardless of mutability).
 
+``` rust
 fn baz(age: &u32) {}
 fn bin(age: &mut u32) {}
+```
 
 # Copy trait
 
@@ -32,9 +38,12 @@ fn main() {
 
 # Other points
 
-* Unlike tuples and built in array, collections like vector, hashmap and string are stored in the heap.
-* Unlike functions, closures can capture values from the scope in which they're defined.
+* Unlike tuples and built in array, collections like vector, hashmap
+  and string are stored in the heap.
+* Unlike functions, closures can capture values from the scope in
+  which they're defined.
 
 # Other Resources
 
 * [Rust Cheat Sheet](https://cheats.rs/)
+* [Rust for Functional programmers](https://pure.uva.nl/ws/files/2217922/167003_rust_for_functional_programmers.pdf)
