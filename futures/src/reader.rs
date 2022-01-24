@@ -1,20 +1,27 @@
 use std::{
     pin::Pin,
-    task::{Context, Poll}, time::Duration,
+    task::{Context, Poll},
+    time::Duration,
 };
 
-use tokio::{io::{AsyncRead, ReadBuf, AsyncReadExt}, fs::File, time::{Instant, Sleep}};
 use futures::FutureExt;
+use tokio::{
+    fs::File,
+    io::{AsyncRead, AsyncReadExt, ReadBuf},
+    time::{Instant, Sleep},
+};
 
 struct SlowReader<R> {
     reader: Pin<Box<R>>,
-    sleep: Pin<Box<Sleep>>
+    sleep: Pin<Box<Sleep>>,
 }
 
 impl<R> SlowReader<R> {
     fn new(reader: R) -> Self {
-        Self { reader: Box::pin(reader),
-        sleep: Box::pin(tokio::time::sleep(Default::default()))}
+        Self {
+            reader: Box::pin(reader),
+            sleep: Box::pin(tokio::time::sleep(Default::default())),
+        }
     }
 }
 
@@ -29,9 +36,11 @@ where
     ) -> Poll<std::io::Result<()>> {
         match self.sleep.poll_unpin(cx) {
             Poll::Ready(_) => {
-                self.sleep.as_mut().reset(Instant::now() + Duration::from_millis(25));
+                self.sleep
+                    .as_mut()
+                    .reset(Instant::now() + Duration::from_millis(25));
                 self.reader.as_mut().poll_read(cx, buf)
-            },
+            }
             Poll::Pending => Poll::Pending,
         }
     }
