@@ -1,8 +1,14 @@
-use std::{future::Future, pin::Pin, task::{Context, Poll}, time::Duration};
+use std::{
+    future::Future,
+    pin::Pin,
+    task::{Context, Poll},
+    time::Duration,
+};
 
-use tokio::time::Sleep;
+use futures::FutureExt;
+use tokio::time::{sleep, Sleep};
 
-#[tokio::main(flavor="current_thread")]
+#[tokio::main(flavor = "current_thread")]
 async fn main() {
     let future = MyFuture::new();
     println!("Awaiting fut...");
@@ -11,7 +17,7 @@ async fn main() {
 }
 
 struct MyFuture {
-    sleep: Sleep
+    sleep: Pin<Box<Sleep>>,
 }
 
 impl Future for MyFuture {
@@ -19,14 +25,16 @@ impl Future for MyFuture {
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         println!("MyFuture::poll");
-        // self.sleep.poll(cx) does work because
+        // self.sleep.poll(cx) does not work becausse
         // self.sleep : Sleep
         // But the poll function can be only be call when self itself is pinned because `mut self: Pin<&mut Self>`
-        self.sleep.poll(cx)
+        self.sleep.poll_unpin(cx)
     }
 }
 impl MyFuture {
     fn new() -> Self {
-        Self {sleep: tokio::time::sleep(Duration::from_secs(1))}
+        Self {
+            sleep: Box::pin(sleep(Duration::from_secs(1))),
+        }
     }
 }
