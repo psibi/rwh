@@ -34,8 +34,8 @@ where
         cx: &mut Context<'_>,
         buf: &mut ReadBuf<'_>,
     ) -> Poll<std::io::Result<()>> {
-        let sleep = unsafe { self.as_mut().map_unchecked_mut(|this| &mut this.sleep) };
-        match sleep.poll(cx) {
+        let mut sleep = unsafe { self.as_mut().map_unchecked_mut(|this| &mut this.sleep) };
+        match sleep.poll_unpin(cx) {
             Poll::Ready(_) => {
                 let sleep = unsafe { self.as_mut().map_unchecked_mut(|this| &mut this.sleep) };
                 sleep.reset(Instant::now() + Duration::from_millis(25));
