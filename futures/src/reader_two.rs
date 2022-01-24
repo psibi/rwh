@@ -19,7 +19,7 @@ struct SlowReader<R> {
 impl<R> SlowReader<R> {
     fn new(reader: R) -> Self {
         Self {
-            reader: reader,
+            reader,
             sleep: tokio::time::sleep(Default::default()),
         }
     }
