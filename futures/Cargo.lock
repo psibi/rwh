@@ -84,6 +84,7 @@ name = "futures-play"
 version = "0.1.0"
 dependencies = [
  "futures",
+ "pin-utils",
  "tokio",
 ]
 
