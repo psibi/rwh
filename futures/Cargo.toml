@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 futures = "0.3.19"
+pin-project = "1.0.10"
 pin-utils = "0.1.0"
 tokio = { version = "1.15.0", features = ["full"]}
 
@@ -21,3 +22,7 @@ path = "src/reader_two.rs"
 [[bin]]
 name = "reader3"
 path = "src/reader_three.rs"
+
+[[bin]]
+name = "reader4"
+path = "src/reader_four.rs"
