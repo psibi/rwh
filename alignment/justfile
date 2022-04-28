@@ -1,0 +1,5 @@
+default:
+    just --list --unsorted
+
+compile:
+    gcc -g code1.c

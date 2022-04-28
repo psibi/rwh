@@ -1,0 +1,39 @@
+* Introduction
+
+This article mainly follows the ESR's article. Way to test it in gdb:
+
+#+begin_src sh
+just compile
+gdb a.out
+#+end_src
+
+#+begin_src sh
+❯ gdb a.out
+(gdb) b main
+Breakpoint 1 at 0x401040: file /nix/store/7rfaw11na5ajdgwr55ffzwfibbrdpk8z-glibc-2.33-56-dev/include/bits/stdio2.h, line 112.
+(gdb) r
+Starting program: /home/sibi/github/rwh/alignment/a.out
+
+Breakpoint 1, main () at /nix/store/7rfaw11na5ajdgwr55ffzwfibbrdpk8z-glibc-2.33-56-dev/include/bits/stdio2.h:112
+112       return __printf_chk (__USE_FORTIFY_LEVEL - 1, __fmt, __va_arg_pack ());
+(gdb) n
+11        printf("%s", "hello world");
+(gdb) ptype /o f1
+/* offset      |    size */  type = struct foo1 {
+/*      0      |       8 */    char *p;
+/*      8      |       1 */    char c;
+/* XXX  7-byte hole      */
+/*     16      |       8 */    long x;
+
+                               /* total size (bytes):   24 */
+                             }
+#+end_src
+
+* Important things to remember
+
+- In general, a struct instance will have the alignment of its widest
+  scalar member.
+
+* Reference
+
+- [[http://www.catb.org/esr/structure-packing][ESR Article]]
